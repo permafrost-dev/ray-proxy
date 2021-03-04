@@ -19,6 +19,10 @@ _This is a work in progress and may change considerably without notice._
 
 ---
 
+![screenshot](https://static.permafrost.dev/images/ray-proxy/images/ray-proxy/screenshot-01.png)
+
+---
+
 ## Instructions
 
 ```bash

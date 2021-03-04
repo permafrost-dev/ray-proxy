@@ -1,18 +1,25 @@
+<p align="center">
+    <img src="https://static.permafrost.dev/images/ray-proxy/ray-proxy-logo-256x256.png" alt="ray-proxy" height="200" style="block">
+    <br><br>
+    <code style="font-size:3.0rem;"><strong>ray-proxy</strong></code>
+    <br><br>
+</p>
+
 # ray-proxy
 
 ---
 
-This project acts as a proxy in front of [Ray](https://myray.app) that sends CORS headers.  This allows use of the [js-ray](https://github.com/m1guelpf/ray-js) package during development of webpages.
+This project acts as a proxy in front of [Ray](https://myray.app) for debugging the data sent between your app and the Ray app.
 
 Internally, this project uses the [fastify](https://www.fastify.io/) package for the http service and the [axios](https://github.com/axios/axios) package to forward the incoming requests to Ray.
 
-The proxy will run on port `3000` and forward the requests from `js-ray` to `http://localhost:23517`.
+The proxy will run on port `23517` and forward the requests to `http://localhost:23516`.
 
 _This is a work in progress and may change considerably without notice._
 
 ---
 
-Instructions:
+## Instructions
 
 ```bash
 # install required packages
@@ -25,37 +32,19 @@ npm run dev
 npm run prod
 ```
 
----
+Or you can build and run manually:
 
-**project features:**
+```bash
+npm run build:prod
 
-- esbuild
-- eslint
-- husky v4
-- lint-staged
-- prettier
-- jest
-- typescript
-
-**npm scripts:**
-
-- run tests
-- format all
-- lint all
-- lint and fix all
-- build (dev/prod)
-- build & run (dev/prod)
-
-**git hooks:**
-
-- pre-commit:
-  - *.ts,*.js - format and lint
+node run dist/index.js
+```
 
 ---
 
 ## Testing
 
-This package uses jest for unit tests.  To run the test suite, run:
+This package uses jest for unit tests. To run the test suite, run:
 
 `npm run test`
 

@@ -35,9 +35,9 @@ npm run prod
 Or you can build and run manually:
 
 ```bash
-npm run build:prod
+npm run build:prod # or build:dev
 
-node run dist/index.js
+node run dist/ray-proxy.js
 ```
 
 ---

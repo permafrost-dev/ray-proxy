@@ -2,15 +2,15 @@
     "name": "permafrost-dev/ray-proxy",
     "version": "0.1.0",
     "description": "a proxy for Ray that sends CORS headers to allow use of js-ray",
-    "main": "dist/index.js",
+    "main": "dist/ray-proxy.js",
     "scripts": {
         "test": "./node_modules/.bin/jest tests",
         "fmt": "./node_modules/.bin/prettier --config .prettierrc --write $(find src/ tests/ -printf '%p ' -type f -regex '.*\\.([tj]s|json)$')",
         "lint": "./node_modules/.bin/eslint --ext ts,js src/",
         "lint:fix": "./node_modules/.bin/eslint --ext ts,js --fix src/",
         "fix": "npm run fmt && npm run lint:fix",
-        "build:dev": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outdir=dist src/index.ts",
-        "build:prod": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outdir=dist --bundle --log-level=silent src/index.ts",
+        "build:dev": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outfile=dist/ray-proxy.js src/index.ts",
+        "build:prod": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outfile=dist/ray-proxy.js --log-level=silent src/index.ts",
         "dev": "npm run build:dev && node dist/index.js",
         "prod": "npm run build:prod && node dist/index.js"
     },
@@ -41,7 +41,7 @@
         "lint-staged": "^10.5.3",
         "prettier": "^2.2.1",
         "ts-jest": "^26.4.4",
-        "typescript": "^4.2.0"
+        "typescript": "^4.1.0"
     },
     "dependencies": {
         "axios": "^0.21.1",

@@ -12,7 +12,9 @@
         "build:dev": "node ./scripts/build.js dev",
         "build:prod": "node ./scripts/build.js prod",
         "dev": "npm run build:dev && node dist/ray-proxy.js",
-        "prod": "npm run build:prod && node dist/ray-proxy.js"
+        "prod": "npm run build:prod && node dist/ray-proxy.js",
+        "preversion": "npm run test",
+        "postversion": "npm run build:prod"
     },
     "author": "Patrick Organ <patrick@permafrost.dev>",
     "license": "MIT",

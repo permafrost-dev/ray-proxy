@@ -1,6 +1,6 @@
 {
     "name": "ray-proxy",
-    "version": "0.2.0",
+    "version": "1.2.1",
     "description": "a proxy for Ray that debugs data sent from your project to Ray",
     "main": "dist/ray-proxy.js",
     "scripts": {
@@ -16,24 +16,24 @@
     },
     "author": "Patrick Organ <patrick@permafrost.dev>",
     "license": "MIT",
-  "homepage": "https://github.com/permafrost-dev/ray-proxy",
-  "keywords": [
-    "ray",
-    "proxy",
-    "nodejs",
-    "typescript",
-    "javascript",
-    "es6",
-    "debug",
-    "permafrost"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/permafrost-dev/ray-proxy.git"
-  },
-  "bugs": {
-    "url": "https://github.com/permafrost-dev/ray-proxy/issues"
-  },
+    "homepage": "https://github.com/permafrost-dev/ray-proxy",
+    "keywords": [
+        "ray",
+        "proxy",
+        "nodejs",
+        "typescript",
+        "javascript",
+        "es6",
+        "debug",
+        "permafrost"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/permafrost-dev/ray-proxy.git"
+    },
+    "bugs": {
+        "url": "https://github.com/permafrost-dev/ray-proxy/issues"
+    },
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"

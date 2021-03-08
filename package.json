@@ -1,6 +1,6 @@
 {
     "name": "ray-proxy",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "a proxy for Ray that sends CORS headers to allow use of js-ray",
     "main": "dist/ray-proxy.js",
     "scripts": {
@@ -47,5 +47,7 @@
         "axios": "^0.21.1",
         "fastify": "^3.9.2"
     },
-    "bin": {"ray-proxy": "./dist/ray-proxy"}
+    "bin": {
+        "ray-proxy": "dist/ray-proxy"
+    }
 }

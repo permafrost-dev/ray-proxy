@@ -204,7 +204,7 @@ var _Application = class {
               \`---'   |                  \`---'
 `);
         }
-        this.logger.log(`Running ray-proxy v${_Application.VERSION}`);
+        this.logger.log(`Running ${_Application.NAME} v${_Application.VERSION}`);
         this.logger.log(`Proxy listening on local port ${this.config.proxyPort}`);
         this.logger.log(`Proxy forwarding to Ray host ${this.config.hostName}`);
         this.logger.log(`Proxy forwarding to Ray port ${this.config.hostPort}`);
@@ -232,7 +232,8 @@ var _Application = class {
     }
 };
 var Application = _Application;
-Application.VERSION = '0.1.0';
+Application.VERSION = '0.2.2';
+Application.NAME = 'ray-proxy';
 
 // src/classes/ProxyConfig.ts
 var import_fs = __toModule(require('fs'));

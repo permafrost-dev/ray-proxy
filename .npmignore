@@ -4,6 +4,7 @@
 /build
 /coverage
 /node_modules
+/scripts
 /src
 /tests
 .editorconfig
@@ -18,6 +19,3 @@ tsconfig.json
 *.sh
 _*.txt
 *.ignored
-rollup.vue?-config.js
-examples
-rollup.*.js

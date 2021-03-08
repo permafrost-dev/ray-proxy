@@ -1,5 +1,5 @@
 {
-    "name": "permafrost-dev/ray-proxy",
+    "name": "ray-proxy",
     "version": "0.1.0",
     "description": "a proxy for Ray that sends CORS headers to allow use of js-ray",
     "main": "dist/ray-proxy.js",
@@ -9,10 +9,10 @@
         "lint": "./node_modules/.bin/eslint --ext ts,js src/",
         "lint:fix": "./node_modules/.bin/eslint --ext ts,js --fix src/",
         "fix": "npm run fmt && npm run lint:fix",
-        "build:dev": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outfile=dist/ray-proxy.js --bundle --external:fastify --external:axios src/index.ts",
-        "build:prod": "./node_modules/.bin/esbuild --platform=node --target=node14 --format=cjs --outfile=dist/ray-proxy.js --bundle --external:fastify --external:axios --log-level=silent src/index.ts",
-        "dev": "npm run build:dev && node dist/index.js",
-        "prod": "npm run build:prod && node dist/index.js"
+        "build:dev": "node ./scripts/build.js dev",
+        "build:prod": "node ./scripts/build.js prod",
+        "dev": "npm run build:dev && node dist/ray-proxy.js",
+        "prod": "npm run build:prod && node dist/ray-proxy.js"
     },
     "author": "Patrick Organ <patrick@permafrost.dev>",
     "license": "MIT",

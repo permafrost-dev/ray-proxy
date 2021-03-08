@@ -1,7 +1,7 @@
 {
     "name": "ray-proxy",
     "version": "0.2.0",
-    "description": "a proxy for Ray that sends CORS headers to allow use of js-ray",
+    "description": "a proxy for Ray that debugs data sent from your project to Ray",
     "main": "dist/ray-proxy.js",
     "scripts": {
         "test": "./node_modules/.bin/jest tests",
@@ -16,6 +16,24 @@
     },
     "author": "Patrick Organ <patrick@permafrost.dev>",
     "license": "MIT",
+  "homepage": "https://github.com/permafrost-dev/ray-proxy",
+  "keywords": [
+    "ray",
+    "proxy",
+    "nodejs",
+    "typescript",
+    "javascript",
+    "es6",
+    "debug",
+    "permafrost"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/permafrost-dev/ray-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/permafrost-dev/ray-proxy/issues"
+  },
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
@@ -48,6 +66,9 @@
         "fastify": "^3.9.2"
     },
     "bin": {
-        "ray-proxy": "dist/ray-proxy"
+        "ray-proxy": "dist/ray-proxy.js"
+    },
+    "engines": {
+        "node": ">=12.0.0"
     }
 }

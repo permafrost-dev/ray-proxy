@@ -1,11 +1,11 @@
 const fs = require('fs');
-const path = require('path');
-const projectPath = path.dirname(__dirname);
+//const path = require('path');
+const projectPath = __dirname + '/..';
 const pkg = require(projectPath + '/package.json');
 
 const filenames = {
     input: projectPath + '/src/index.ts',
-    output: projectPath + pkg.main,
+    output: projectPath + '/' + pkg.main,
 };
 
 class ProjectBuilder {

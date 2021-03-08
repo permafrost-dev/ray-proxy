@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { RequestCache } from '../src/RequestCache';
+import { RequestCache } from '../src/classes/RequestCache';
 
 let cache: RequestCache;
 

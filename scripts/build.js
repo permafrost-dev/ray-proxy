@@ -14,7 +14,7 @@ class ProjectBuilder {
             entryPoints: [filenames.input],
             bundle: true,
             platform: 'node',
-            target: 'node14',
+            target: 'node12',
             format: 'cjs',
             outfile: filenames.output,
             external: ['axios', 'fastify', 'fs'],

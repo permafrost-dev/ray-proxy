@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THISDIR=$(dirname .)
+THISDIR=$(dirname $0)
 NODE=$(which node)
 
-$NODE "$THISDIR/dist/ray-proxy.js"
+$NODE "$THISDIR/../ray-proxy/dist/ray-proxy.js"

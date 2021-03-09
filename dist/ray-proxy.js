@@ -232,7 +232,7 @@ var _Application = class {
     }
 };
 var Application = _Application;
-Application.VERSION = '0.2.2';
+Application.VERSION = '0.2.3';
 Application.NAME = 'ray-proxy';
 
 // src/classes/ProxyConfig.ts

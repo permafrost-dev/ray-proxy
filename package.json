@@ -1,6 +1,6 @@
 {
     "name": "ray-proxy",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "a proxy for Ray that debugs data sent from your project to Ray",
     "main": "dist/ray-proxy.js",
     "scripts": {

@@ -22,9 +22,9 @@ export class Application {
         this.axios = axios;
         this.fastify = fastify;
         this.config = config;
-        this.requestCache = requestCache ?? new RequestCache();
-        this.counters = counters ?? new Counters();
-        this.logger = logger ?? new Logger(this.counters, this.requestCache);
+        this.requestCache = requestCache || new RequestCache();
+        this.counters = counters || new Counters();
+        this.logger = logger || new Logger(this.counters, this.requestCache);
         this.initialized = false;
 
         this.initEventHandlers();

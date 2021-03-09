@@ -1,0 +1,6 @@
+#!/bin/bash
+
+THISDIR=$(dirname .)
+NODE=$(which node)
+
+$NODE "$THISDIR/dist/ray-proxy.js"

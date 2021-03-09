@@ -4,6 +4,10 @@ All notable changes to `permafrost-dev/ray-proxy` will be documented in this fil
 
 ---
 
+## 0.2.3 - 2021-03-08
+
+- fix binary script
+
 ## 0.2.0 - 2021-03-08
 
 - allow configuration via `ray-proxy.config.js` file

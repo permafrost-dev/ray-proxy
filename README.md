@@ -51,7 +51,7 @@ node run dist/ray-proxy.js
 
 ## Configuration
 
-Upon starting, `ray-proxy` looks for the file `ray-proxy.config.js` in the same directory as `ray-proxy.js`.
+Upon starting, `ray-proxy` looks for the file `ray-proxy.config.js` in the same directory as your current project's root directory.
 
 This is optional and the application will use the default settings if no configuration file is found.
 

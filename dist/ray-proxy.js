@@ -475,7 +475,7 @@ var _Application = class {
   }
 };
 var Application = _Application;
-Application.VERSION = "0.2.4";
+Application.VERSION = "0.2.5";
 Application.NAME = "ray-proxy";
 
 // src/classes/ProxyConfig.ts

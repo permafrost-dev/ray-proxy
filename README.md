@@ -27,27 +27,13 @@ _This is a work in progress and may change considerably without notice._
 
 ---
 
-## Instructions
+## Installation
 
 ```bash
-# install required packages
-npm install
+npm install ray-proxy --save-dev
 
-# run in development mode
-npm run dev
-
-# or run in production mode:
-npm run prod
+./node_modules/.bin/ray-proxy
 ```
-
-Or you can build and run manually:
-
-```bash
-npm run build:prod # or build:dev
-
-node run dist/ray-proxy.js
-```
-
 
 ## Configuration
 
@@ -70,6 +56,29 @@ module.exports = {
 
 ---
 
+## Development Instructions
+
+```bash
+# install required packages
+npm install
+
+# run in development mode
+npm run dev
+
+# or run in production mode:
+npm run prod
+```
+
+Or you can build and run manually:
+
+```bash
+npm run build:prod # or build:dev
+
+node run dist/ray-proxy.js
+```
+
+---
+
 ## Testing
 
 This package uses jest for unit tests. To run the test suite, run:
@@ -82,7 +91,14 @@ This package uses jest for unit tests. To run the test suite, run:
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
----
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Patrick Organ](https://github.com/patinthehat)
+- [All Contributors](../../contributors)
 
 ## License
 

@@ -65,7 +65,8 @@
     },
     "dependencies": {
         "axios": "^0.21.1",
-        "fastify": "^3.9.2"
+        "fastify": "^3.9.2",
+        "find-up": "^4.1.0"
     },
     "bin": {
         "ray-proxy": "dist/ray-proxy-bin"

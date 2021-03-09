@@ -1,4 +1,5 @@
 import { existsSync } from 'fs';
+const findUp = require('find-up');
 
 export interface ProxyConfigurationData {
     hostName?: string;
@@ -43,10 +44,14 @@ export class ProxyConfig {
 
     public static loadFromFile(filename: string | null = null): ProxyConfig {
         if (!filename) {
-            filename = __dirname + '/ray-proxy.config.js';
+            filename = findUp.sync('ray-proxy.config.js');
+
+            if (filename === undefined) {
+                filename = __dirname + '/ray-proxy.config.js';
+            }
         }
 
-        if (!existsSync(filename)) {
+        if (filename === null || !existsSync(filename)) {
             //throw new Error('config file not found.');
             console.log('config file not found, using defaults');
 

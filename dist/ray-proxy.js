@@ -188,9 +188,9 @@ var _Application = class {
         this.axios = axios2;
         this.fastify = fastify2;
         this.config = config2;
-        this.requestCache = requestCache != null ? requestCache : new RequestCache();
-        this.counters = counters != null ? counters : new Counters();
-        this.logger = logger != null ? logger : new Logger(this.counters, this.requestCache);
+        this.requestCache = requestCache || new RequestCache();
+        this.counters = counters || new Counters();
+        this.logger = logger || new Logger(this.counters, this.requestCache);
         this.initialized = false;
         this.initEventHandlers();
         this.displayBanner();

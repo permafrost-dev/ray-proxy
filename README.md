@@ -37,7 +37,7 @@ npm install ray-proxy --save-dev
 
 ## Precompiled Standalone Build
 
-You can find a precompiled, standalone build on the [releases](./releases) page under "Assets", named something like `ray-proxy-standalone-X.Y.Z.tgz` where `X.Y.Z` is the latest release version.
+You can find a precompiled, standalone build on the [releases](../../releases) page under "Assets", named something like `ray-proxy-standalone-X.Y.Z.tgz` where `X.Y.Z` is the latest release version.
 
 All you need to run the standalone build is a NodeJS v12+ installation.
 

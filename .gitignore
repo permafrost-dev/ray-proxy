@@ -4,3 +4,4 @@
 package-lock.json
 yarn.lock
 ray-proxy.config.js
+dist/*.tgz

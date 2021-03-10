@@ -20,3 +20,5 @@ tsconfig.json
 _*.txt
 *.ignored
 ray-proxy.config.js
+dist/ray-proxy.standalone.js
+dist/*.tgz

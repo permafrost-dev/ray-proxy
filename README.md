@@ -35,6 +35,12 @@ npm install ray-proxy --save-dev
 ./node_modules/.bin/ray-proxy
 ```
 
+## Precompiled Standalone Build
+
+You can find a precompiled, standalone build on the [releases](./releases) page under "Assets", named something like `ray-proxy-standalone-X.Y.Z.tgz` where `X.Y.Z` is the latest release version.
+
+All you need to run the standalone build is a NodeJS v12+ installation.
+
 ## Configuration
 
 Upon starting, `ray-proxy` looks for the file `ray-proxy.config.js` in the same directory as your current project's root directory.

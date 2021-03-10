@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays the statistics 1`] = `
+Array [
+  "---",
+  "payload: ",
+  "test payload",
+  "---",
+  "[Ray App] response time from Ray (last): 100 ms",
+  "[Ray App] response time from Ray (avg): 100.0 ms",
+  "[project] requests/sec to Ray app: 1.00",
+  "[payload] data sent (total): 1 kb",
+  "[payload] data sent (last payload): 0.012 kb",
+  "[payload] data sent (avg/request): 1 kb",
+  "---",
+]
+`;

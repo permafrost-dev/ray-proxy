@@ -5,14 +5,16 @@ import { formatPayloadSize } from '../lib/utils';
 export class Logger {
     public counters: Counters;
     public requestCache: RequestCache;
+    public logger: any;
 
-    constructor(counters: Counters, requestCache: RequestCache) {
+    constructor(counters: Counters, requestCache: RequestCache, logger: any = null) {
+        this.logger = logger ?? console;
         this.counters = counters;
         this.requestCache = requestCache;
     }
 
     public log(...args: any[]) {
-        console.log(...args);
+        this.logger.log(...args);
     }
 
     public separator() {

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`relays a response from the app to the client 1`] = `
+Array [
+  Object {
+    "abc": 123,
+    "def": 456,
+  },
+]
+`;
+
+exports[`relays a response from the app to the client 2`] = `
+Array [
+  Object {
+    "name": "one",
+    "value": "header one",
+  },
+  Object {
+    "name": "two",
+    "value": "header two",
+  },
+]
+`;

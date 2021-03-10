@@ -11,10 +11,11 @@
         "fix": "npm run fmt && npm run lint:fix",
         "build:dev": "node ./scripts/build.js dev",
         "build:prod": "node ./scripts/build.js prod",
+        "build:standalone": "/bin/bash ./scripts/make-standalone-archive.sh",
         "dev": "npm run build:dev && node dist/ray-proxy.js",
         "prod": "npm run build:prod && node dist/ray-proxy.js",
         "preversion": "npm run test",
-        "postversion": "npm run build:prod"
+        "postversion": "npm run build:prod && npm run build:standalone"
     },
     "author": "Patrick Organ <patrick@permafrost.dev>",
     "license": "MIT",

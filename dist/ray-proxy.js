@@ -24,63 +24,111 @@ var __toModule = (module2) => {
   return __exportStar(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? {get: () => module2.default, enumerable: true} : {value: module2, enumerable: true})), module2);
 };
 
-// node_modules/p-try/index.js
-var require_p_try = __commonJS((exports2, module2) => {
-  "use strict";
-  var pTry = (fn, ...arguments_) => new Promise((resolve) => {
-    resolve(fn(...arguments_));
-  });
-  module2.exports = pTry;
-  module2.exports.default = pTry;
+// node_modules/yocto-queue/index.js
+var require_yocto_queue = __commonJS((exports2, module2) => {
+  var Node = class {
+    constructor(value) {
+      this.value = value;
+      this.next = void 0;
+    }
+  };
+  var Queue = class {
+    constructor() {
+      this.clear();
+    }
+    enqueue(value) {
+      const node = new Node(value);
+      if (this._head) {
+        this._tail.next = node;
+        this._tail = node;
+      } else {
+        this._head = node;
+        this._tail = node;
+      }
+      this._size++;
+    }
+    dequeue() {
+      const current = this._head;
+      if (!current) {
+        return;
+      }
+      this._head = this._head.next;
+      this._size--;
+      return current.value;
+    }
+    clear() {
+      this._head = void 0;
+      this._tail = void 0;
+      this._size = 0;
+    }
+    get size() {
+      return this._size;
+    }
+    *[Symbol.iterator]() {
+      let current = this._head;
+      while (current) {
+        yield current.value;
+        current = current.next;
+      }
+    }
+  };
+  module2.exports = Queue;
 });
 
 // node_modules/p-limit/index.js
 var require_p_limit = __commonJS((exports2, module2) => {
   "use strict";
-  var pTry = require_p_try();
+  var Queue = require_yocto_queue();
   var pLimit = (concurrency) => {
     if (!((Number.isInteger(concurrency) || concurrency === Infinity) && concurrency > 0)) {
-      return Promise.reject(new TypeError("Expected `concurrency` to be a number from 1 and up"));
+      throw new TypeError("Expected `concurrency` to be a number from 1 and up");
     }
-    const queue = [];
+    const queue = new Queue();
     let activeCount = 0;
     const next = () => {
       activeCount--;
-      if (queue.length > 0) {
-        queue.shift()();
+      if (queue.size > 0) {
+        queue.dequeue()();
       }
     };
-    const run = (fn, resolve, ...args) => {
+    const run = async (fn, resolve, ...args) => {
       activeCount++;
-      const result = pTry(fn, ...args);
+      const result = (async () => fn(...args))();
       resolve(result);
-      result.then(next, next);
+      try {
+        await result;
+      } catch {
+      }
+      next();
     };
     const enqueue = (fn, resolve, ...args) => {
-      if (activeCount < concurrency) {
-        run(fn, resolve, ...args);
-      } else {
-        queue.push(run.bind(null, fn, resolve, ...args));
-      }
+      queue.enqueue(run.bind(null, fn, resolve, ...args));
+      (async () => {
+        await Promise.resolve();
+        if (activeCount < concurrency && queue.size > 0) {
+          queue.dequeue()();
+        }
+      })();
     };
-    const generator = (fn, ...args) => new Promise((resolve) => enqueue(fn, resolve, ...args));
+    const generator = (fn, ...args) => new Promise((resolve) => {
+      enqueue(fn, resolve, ...args);
+    });
     Object.defineProperties(generator, {
       activeCount: {
         get: () => activeCount
       },
       pendingCount: {
-        get: () => queue.length
+        get: () => queue.size
       },
       clearQueue: {
         value: () => {
-          queue.length = 0;
+          queue.clear();
         }
       }
     });
     return generator;
   };
   module2.exports = pLimit;
-  module2.exports.default = pLimit;
 });
 
 // node_modules/p-locate/index.js
@@ -120,7 +168,6 @@ var require_p_locate = __commonJS((exports2, module2) => {
     }
   };
   module2.exports = pLocate;
-  module2.exports.default = pLocate;
 });
 
 // node_modules/locate-path/index.js
@@ -156,7 +203,7 @@ var require_locate_path = __commonJS((exports2, module2) => {
       try {
         const stat = await statFn(path.resolve(options.cwd, path_));
         return matchType(options.type, stat);
-      } catch (_) {
+      } catch {
         return false;
       }
     }, options);
@@ -176,7 +223,7 @@ var require_locate_path = __commonJS((exports2, module2) => {
         if (matchType(options.type, stat)) {
           return path_;
         }
-      } catch (_) {
+      } catch {
       }
     }
   };
@@ -309,12 +356,34 @@ var Counters = class {
 var formatPayloadSize = (bytes, decimals = 3) => {
   return Number((bytes / 1024).toFixed(decimals));
 };
-var relayResponseFromAppToClient = (fastifyReply, appResponse) => {
-  const sentReply = fastifyReply.code(appResponse.status);
-  for (const headerName in appResponse.headers) {
-    sentReply.header(headerName, appResponse.headers[headerName]);
+var relayResponseFromAppToClient = (fastifyReply, appResponse, reflectHeaders = true) => {
+  var _a;
+  if (typeof appResponse === "undefined") {
+    const sentReply2 = fastifyReply.code(404);
+    sentReply2.header("Access-Control-Allow-Origin", "*");
+    sentReply2.send("not found");
+    return;
   }
+  const sentReply = fastifyReply.code((_a = appResponse == null ? void 0 : appResponse.status) != null ? _a : 404);
+  if (reflectHeaders) {
+    sentReply.headers(appResponse.headers);
+  }
+  sentReply.header("connection", "keep-alive");
+  setCorsHeaders(sentReply);
   sentReply.send(appResponse.data);
+};
+var setCorsHeaders = (reply) => {
+  reply.header("Access-Control-Allow-Origin", "*");
+  reply.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  reply.header("Access-Control-Allow-Headers", "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range");
+  reply.header("Access-Control-Expose-Headers", "Content-Length,Content-Range");
+};
+var sendPreflightCorsResponse = (fastifyReply) => {
+  const sentReply = fastifyReply.code(204);
+  setCorsHeaders(sentReply);
+  sentReply.header("Access-Control-Max-Age", 3600 * 24);
+  sentReply.header("Content-Type", "text/plain; charset=utf-8");
+  sentReply.send("");
 };
 
 // src/classes/EventHandlers.ts
@@ -330,10 +399,20 @@ var EventHandlers = class {
       relayResponseFromAppToClient(reply, response);
     };
   }
+  onGet(config2, axios2) {
+    return async (req, reply) => {
+      let response;
+      try {
+        response = await axios2.get(`${req.url}`);
+      } catch (err) {
+        response = err.response;
+      }
+      relayResponseFromAppToClient(reply, response);
+    };
+  }
   onOptions(config2, axios2) {
     return async (req, reply) => {
-      const response = await axios2.options(`http://${config2.hostName}:${config2.hostPort}`);
-      relayResponseFromAppToClient(reply, response);
+      sendPreflightCorsResponse(reply);
     };
   }
   onPost(config2, axios2, requestCache, counters, logger) {
@@ -352,12 +431,13 @@ var EventHandlers = class {
 
 // src/classes/Logger.ts
 var Logger = class {
-  constructor(counters, requestCache) {
+  constructor(counters, requestCache, logger = null) {
+    this.logger = logger != null ? logger : console;
     this.counters = counters;
     this.requestCache = requestCache;
   }
   log(...args) {
-    console.log(...args);
+    this.logger.log(...args);
   }
   separator() {
     this.log("---");
@@ -457,6 +537,8 @@ var _Application = class {
     handlers = handlers != null ? handlers : new EventHandlers();
     if (!this.initialized) {
       this.fastify.post("/", handlers.onPost(this.config, axios2, this.requestCache, this.counters, this.logger));
+      this.fastify.get("/locks/*", handlers.onGet(this.config, axios2));
+      this.fastify.get("/*", handlers.onGet(this.config, axios2));
       this.fastify.head("/", handlers.onHead(this.config, axios2));
       this.fastify.options("/", handlers.onOptions(this.config, axios2));
       this.initialized = true;

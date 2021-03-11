@@ -55,6 +55,8 @@ export class Application {
 
         if (!this.initialized) {
             this.fastify.post('/', handlers.onPost(this.config, axios, this.requestCache, this.counters, this.logger));
+            this.fastify.get('/locks/*', handlers.onGet(this.config, axios));
+            this.fastify.get('/*', handlers.onGet(this.config, axios));
             this.fastify.head('/', handlers.onHead(this.config, axios));
             this.fastify.options('/', handlers.onOptions(this.config, axios));
 

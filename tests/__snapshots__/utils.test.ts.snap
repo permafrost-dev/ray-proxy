@@ -19,5 +19,75 @@ Array [
     "name": "two",
     "value": "header two",
   },
+  Object {
+    "name": "connection",
+    "value": "keep-alive",
+  },
+  Object {
+    "name": "Access-Control-Allow-Origin",
+    "value": "*",
+  },
+  Object {
+    "name": "Access-Control-Allow-Methods",
+    "value": "GET, POST, OPTIONS",
+  },
+  Object {
+    "name": "Access-Control-Allow-Headers",
+    "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
+  },
+  Object {
+    "name": "Access-Control-Expose-Headers",
+    "value": "Content-Length,Content-Range",
+  },
+]
+`;
+
+exports[`sends preflight response headers 1`] = `
+Array [
+  Object {
+    "name": "Access-Control-Allow-Origin",
+    "value": "*",
+  },
+  Object {
+    "name": "Access-Control-Allow-Methods",
+    "value": "GET, POST, OPTIONS",
+  },
+  Object {
+    "name": "Access-Control-Allow-Headers",
+    "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
+  },
+  Object {
+    "name": "Access-Control-Expose-Headers",
+    "value": "Content-Length,Content-Range",
+  },
+  Object {
+    "name": "Access-Control-Max-Age",
+    "value": 86400,
+  },
+  Object {
+    "name": "Content-Type",
+    "value": "text/plain; charset=utf-8",
+  },
+]
+`;
+
+exports[`sets CORS headers on a reply object 1`] = `
+Array [
+  Object {
+    "name": "Access-Control-Allow-Origin",
+    "value": "*",
+  },
+  Object {
+    "name": "Access-Control-Allow-Methods",
+    "value": "GET, POST, OPTIONS",
+  },
+  Object {
+    "name": "Access-Control-Allow-Headers",
+    "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
+  },
+  Object {
+    "name": "Access-Control-Expose-Headers",
+    "value": "Content-Length,Content-Range",
+  },
 ]
 `;

@@ -1,4 +1,6 @@
-import { relayResponseFromAppToClient } from '../lib/utils';
+/* eslint-disable no-unused-vars */
+
+import { relayResponseFromAppToClient, sendPreflightCorsResponse } from '../lib/utils';
 import { Counters } from './Counters';
 import { Logger } from './Logger';
 import { ProxyConfig } from './ProxyConfig';
@@ -19,11 +21,25 @@ export class EventHandlers {
         };
     }
 
-    onOptions(config: ProxyConfig, axios: any) {
+    onGet(config: ProxyConfig, axios: any) {
         return async (req: any, reply: any) => {
-            const response = await axios.options(`http://${config.hostName}:${config.hostPort}`);
+            let response: any;
+
+            try {
+                response = await axios.get(`${req.url}`);
+            } catch (err) {
+                response = err.response;
+            }
 
             relayResponseFromAppToClient(reply, response);
+        };
+    }
+
+    onOptions(config: ProxyConfig, axios: any) {
+        return async (req: any, reply: any) => {
+            //const response = await axios.options(`http://${config.hostName}:${config.hostPort}`);
+            //relayResponseFromAppToClient(reply, response);
+            sendPreflightCorsResponse(reply);
         };
     }
 
@@ -32,6 +48,7 @@ export class EventHandlers {
             requestCache.cache(request.id, new Date().getTime());
 
             const payload = JSON.stringify(request.body).toString();
+
             const response = await axios.post(`http://${config.hostName}:${config.hostPort}`, request.body);
 
             relayResponseFromAppToClient(reply, response);

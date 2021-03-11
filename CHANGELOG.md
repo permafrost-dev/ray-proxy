@@ -4,6 +4,16 @@ All notable changes to `permafrost-dev/ray-proxy` will be documented in this fil
 
 ---
 
+## 0.3.0 - 2021-03-11
+
+- properly reflect Ray app response headers
+
+- add handler for GET requests
+
+- always send CORS headers
+ 
+- respond to preflight requests
+
 ## 0.2.6 - unreleased
 
 - bump `esbuild` version to `^0.9.0`

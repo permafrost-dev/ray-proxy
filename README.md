@@ -30,6 +30,12 @@ _This is a work in progress and may change considerably without notice._
 ## Installation
 
 ```bash
+npx ray-proxy
+```
+
+...or install it into a project:
+
+```bash
 npm install ray-proxy --save-dev
 
 ./node_modules/.bin/ray-proxy

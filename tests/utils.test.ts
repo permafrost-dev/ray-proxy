@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-import { send } from 'node:process';
 import { formatPayloadSize, relayResponseFromAppToClient, sendPreflightCorsResponse, setCorsHeaders } from '../src/lib/utils';
 
 interface SentReplyInterface {

@@ -1,5 +1,5 @@
 import { existsSync } from 'fs';
-const findUp = require('find-up');
+import { findUpSync } from 'find-up';
 
 export interface ProxyConfigurationData {
     hostName?: string;
@@ -44,7 +44,7 @@ export class ProxyConfig {
 
     public static loadFromFile(filename: string | null = null): ProxyConfig {
         if (!filename) {
-            filename = findUp.sync('ray-proxy.config.js');
+            filename = findUpSync('ray-proxy.config.js') || null;
 
             if (filename === undefined) {
                 filename = __dirname + '/ray-proxy.config.js';

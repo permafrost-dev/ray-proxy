@@ -1,328 +1,67 @@
 var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
-var __commonJS = (callback, module2) => () => {
-  if (!module2) {
-    module2 = {exports: {}};
-    callback(module2.exports, module2);
-  }
-  return module2.exports;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
 };
-var __exportStar = (target, module2, desc) => {
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __reExport = (target, module2, copyDefault, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
     for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
-        __defProp(target, key, {get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable});
+      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
+        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
   }
   return target;
 };
-var __toModule = (module2) => {
-  return __exportStar(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? {get: () => module2.default, enumerable: true} : {value: module2, enumerable: true})), module2);
+var __toESM = (module2, isNodeMode) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
-
-// node_modules/yocto-queue/index.js
-var require_yocto_queue = __commonJS((exports2, module2) => {
-  var Node = class {
-    constructor(value) {
-      this.value = value;
-      this.next = void 0;
+var __accessCheck = (obj, member, msg) => {
+  if (!member.has(obj))
+    throw TypeError("Cannot " + msg);
+};
+var __privateGet = (obj, member, getter) => {
+  __accessCheck(obj, member, "read from private field");
+  return getter ? getter.call(obj) : member.get(obj);
+};
+var __privateAdd = (obj, member, value) => {
+  if (member.has(obj))
+    throw TypeError("Cannot add the same private member more than once");
+  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+};
+var __privateSet = (obj, member, value, setter) => {
+  __accessCheck(obj, member, "write to private field");
+  setter ? setter.call(obj, value) : member.set(obj, value);
+  return value;
+};
+var __privateWrapper = (obj, member, setter, getter) => {
+  return {
+    set _(value) {
+      __privateSet(obj, member, value, setter);
+    },
+    get _() {
+      return __privateGet(obj, member, getter);
     }
   };
-  var Queue = class {
-    constructor() {
-      this.clear();
-    }
-    enqueue(value) {
-      const node = new Node(value);
-      if (this._head) {
-        this._tail.next = node;
-        this._tail = node;
-      } else {
-        this._head = node;
-        this._tail = node;
-      }
-      this._size++;
-    }
-    dequeue() {
-      const current = this._head;
-      if (!current) {
-        return;
-      }
-      this._head = this._head.next;
-      this._size--;
-      return current.value;
-    }
-    clear() {
-      this._head = void 0;
-      this._tail = void 0;
-      this._size = 0;
-    }
-    get size() {
-      return this._size;
-    }
-    *[Symbol.iterator]() {
-      let current = this._head;
-      while (current) {
-        yield current.value;
-        current = current.next;
-      }
-    }
-  };
-  module2.exports = Queue;
-});
-
-// node_modules/p-limit/index.js
-var require_p_limit = __commonJS((exports2, module2) => {
-  "use strict";
-  var Queue = require_yocto_queue();
-  var pLimit = (concurrency) => {
-    if (!((Number.isInteger(concurrency) || concurrency === Infinity) && concurrency > 0)) {
-      throw new TypeError("Expected `concurrency` to be a number from 1 and up");
-    }
-    const queue = new Queue();
-    let activeCount = 0;
-    const next = () => {
-      activeCount--;
-      if (queue.size > 0) {
-        queue.dequeue()();
-      }
-    };
-    const run = async (fn, resolve, ...args) => {
-      activeCount++;
-      const result = (async () => fn(...args))();
-      resolve(result);
-      try {
-        await result;
-      } catch {
-      }
-      next();
-    };
-    const enqueue = (fn, resolve, ...args) => {
-      queue.enqueue(run.bind(null, fn, resolve, ...args));
-      (async () => {
-        await Promise.resolve();
-        if (activeCount < concurrency && queue.size > 0) {
-          queue.dequeue()();
-        }
-      })();
-    };
-    const generator = (fn, ...args) => new Promise((resolve) => {
-      enqueue(fn, resolve, ...args);
-    });
-    Object.defineProperties(generator, {
-      activeCount: {
-        get: () => activeCount
-      },
-      pendingCount: {
-        get: () => queue.size
-      },
-      clearQueue: {
-        value: () => {
-          queue.clear();
-        }
-      }
-    });
-    return generator;
-  };
-  module2.exports = pLimit;
-});
-
-// node_modules/p-locate/index.js
-var require_p_locate = __commonJS((exports2, module2) => {
-  "use strict";
-  var pLimit = require_p_limit();
-  var EndError = class extends Error {
-    constructor(value) {
-      super();
-      this.value = value;
-    }
-  };
-  var testElement = async (element, tester) => tester(await element);
-  var finder = async (element) => {
-    const values = await Promise.all(element);
-    if (values[1] === true) {
-      throw new EndError(values[0]);
-    }
-    return false;
-  };
-  var pLocate = async (iterable, tester, options) => {
-    options = {
-      concurrency: Infinity,
-      preserveOrder: true,
-      ...options
-    };
-    const limit = pLimit(options.concurrency);
-    const items = [...iterable].map((element) => [element, limit(testElement, element, tester)]);
-    const checkLimit = pLimit(options.preserveOrder ? 1 : Infinity);
-    try {
-      await Promise.all(items.map((element) => checkLimit(finder, element)));
-    } catch (error) {
-      if (error instanceof EndError) {
-        return error.value;
-      }
-      throw error;
-    }
-  };
-  module2.exports = pLocate;
-});
-
-// node_modules/locate-path/index.js
-var require_locate_path = __commonJS((exports2, module2) => {
-  "use strict";
-  var path = require("path");
-  var fs = require("fs");
-  var {promisify} = require("util");
-  var pLocate = require_p_locate();
-  var fsStat = promisify(fs.stat);
-  var fsLStat = promisify(fs.lstat);
-  var typeMappings = {
-    directory: "isDirectory",
-    file: "isFile"
-  };
-  function checkType({type}) {
-    if (type in typeMappings) {
-      return;
-    }
-    throw new Error(`Invalid type specified: ${type}`);
-  }
-  var matchType = (type, stat) => type === void 0 || stat[typeMappings[type]]();
-  module2.exports = async (paths, options) => {
-    options = {
-      cwd: process.cwd(),
-      type: "file",
-      allowSymlinks: true,
-      ...options
-    };
-    checkType(options);
-    const statFn = options.allowSymlinks ? fsStat : fsLStat;
-    return pLocate(paths, async (path_) => {
-      try {
-        const stat = await statFn(path.resolve(options.cwd, path_));
-        return matchType(options.type, stat);
-      } catch {
-        return false;
-      }
-    }, options);
-  };
-  module2.exports.sync = (paths, options) => {
-    options = {
-      cwd: process.cwd(),
-      allowSymlinks: true,
-      type: "file",
-      ...options
-    };
-    checkType(options);
-    const statFn = options.allowSymlinks ? fs.statSync : fs.lstatSync;
-    for (const path_ of paths) {
-      try {
-        const stat = statFn(path.resolve(options.cwd, path_));
-        if (matchType(options.type, stat)) {
-          return path_;
-        }
-      } catch {
-      }
-    }
-  };
-});
-
-// node_modules/path-exists/index.js
-var require_path_exists = __commonJS((exports2, module2) => {
-  "use strict";
-  var fs = require("fs");
-  var {promisify} = require("util");
-  var pAccess = promisify(fs.access);
-  module2.exports = async (path) => {
-    try {
-      await pAccess(path);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  };
-  module2.exports.sync = (path) => {
-    try {
-      fs.accessSync(path);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  };
-});
-
-// node_modules/find-up/index.js
-var require_find_up = __commonJS((exports2, module2) => {
-  "use strict";
-  var path = require("path");
-  var locatePath = require_locate_path();
-  var pathExists = require_path_exists();
-  var stop = Symbol("findUp.stop");
-  module2.exports = async (name, options = {}) => {
-    let directory = path.resolve(options.cwd || "");
-    const {root} = path.parse(directory);
-    const paths = [].concat(name);
-    const runMatcher = async (locateOptions) => {
-      if (typeof name !== "function") {
-        return locatePath(paths, locateOptions);
-      }
-      const foundPath = await name(locateOptions.cwd);
-      if (typeof foundPath === "string") {
-        return locatePath([foundPath], locateOptions);
-      }
-      return foundPath;
-    };
-    while (true) {
-      const foundPath = await runMatcher({...options, cwd: directory});
-      if (foundPath === stop) {
-        return;
-      }
-      if (foundPath) {
-        return path.resolve(directory, foundPath);
-      }
-      if (directory === root) {
-        return;
-      }
-      directory = path.dirname(directory);
-    }
-  };
-  module2.exports.sync = (name, options = {}) => {
-    let directory = path.resolve(options.cwd || "");
-    const {root} = path.parse(directory);
-    const paths = [].concat(name);
-    const runMatcher = (locateOptions) => {
-      if (typeof name !== "function") {
-        return locatePath.sync(paths, locateOptions);
-      }
-      const foundPath = name(locateOptions.cwd);
-      if (typeof foundPath === "string") {
-        return locatePath.sync([foundPath], locateOptions);
-      }
-      return foundPath;
-    };
-    while (true) {
-      const foundPath = runMatcher({...options, cwd: directory});
-      if (foundPath === stop) {
-        return;
-      }
-      if (foundPath) {
-        return path.resolve(directory, foundPath);
-      }
-      if (directory === root) {
-        return;
-      }
-      directory = path.dirname(directory);
-    }
-  };
-  module2.exports.exists = pathExists;
-  module2.exports.sync.exists = pathExists.sync;
-  module2.exports.stop = stop;
-});
-
-// src/index.ts
-var import_axios = __toModule(require("axios"));
+};
 
 // src/classes/Counters.ts
 var Counters = class {
@@ -351,12 +90,13 @@ var Counters = class {
     return this;
   }
 };
+__name(Counters, "Counters");
 
 // src/lib/utils.ts
-var formatPayloadSize = (bytes, decimals = 3) => {
+var formatPayloadSize = /* @__PURE__ */ __name((bytes, decimals = 3) => {
   return Number((bytes / 1024).toFixed(decimals));
-};
-var relayResponseFromAppToClient = (fastifyReply, appResponse, reflectHeaders = true) => {
+}, "formatPayloadSize");
+var relayResponseFromAppToClient = /* @__PURE__ */ __name((fastifyReply, appResponse, reflectHeaders = true) => {
   var _a;
   if (typeof appResponse === "undefined") {
     const sentReply2 = fastifyReply.code(404);
@@ -371,35 +111,35 @@ var relayResponseFromAppToClient = (fastifyReply, appResponse, reflectHeaders = 
   sentReply.header("connection", "keep-alive");
   setCorsHeaders(sentReply);
   sentReply.send(appResponse.data);
-};
-var setCorsHeaders = (reply) => {
+}, "relayResponseFromAppToClient");
+var setCorsHeaders = /* @__PURE__ */ __name((reply) => {
   reply.header("Access-Control-Allow-Origin", "*");
   reply.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   reply.header("Access-Control-Allow-Headers", "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range");
   reply.header("Access-Control-Expose-Headers", "Content-Length,Content-Range");
-};
-var sendPreflightCorsResponse = (fastifyReply) => {
+}, "setCorsHeaders");
+var sendPreflightCorsResponse = /* @__PURE__ */ __name((fastifyReply) => {
   const sentReply = fastifyReply.code(204);
   setCorsHeaders(sentReply);
   sentReply.header("Access-Control-Max-Age", 3600 * 24);
   sentReply.header("Content-Type", "text/plain; charset=utf-8");
   sentReply.send("");
-};
+}, "sendPreflightCorsResponse");
 
 // src/classes/EventHandlers.ts
 var EventHandlers = class {
-  onHead(config2, axios2) {
+  onHead(config, axios2) {
     return async (req, reply) => {
       let response;
       try {
-        response = await axios2.head(`http://${config2.hostName}:${config2.hostPort}`);
+        response = await axios2.head(`http://${config.hostName}:${config.hostPort}`);
       } catch (err) {
         response = err.response;
       }
       relayResponseFromAppToClient(reply, response);
     };
   }
-  onGet(config2, axios2) {
+  onGet(config, axios2) {
     return async (req, reply) => {
       let response;
       try {
@@ -410,17 +150,22 @@ var EventHandlers = class {
       relayResponseFromAppToClient(reply, response);
     };
   }
-  onOptions(config2, axios2) {
+  onOptions(config, axios2) {
     return async (req, reply) => {
       sendPreflightCorsResponse(reply);
     };
   }
-  onPost(config2, axios2, requestCache, counters, logger) {
+  onPost(config, axios2, requestCache, counters, logger) {
     return async (request, reply) => {
       var _a;
+      let response;
       requestCache.cache(request.id, new Date().getTime());
       const payload = JSON.stringify(request.body).toString();
-      const response = await axios2.post(`http://${config2.hostName}:${config2.hostPort}`, request.body);
+      try {
+        response = await axios2.post(`http://${config.hostName}:${config.hostPort}`, request.body);
+      } catch (err) {
+        response = err.response;
+      }
       relayResponseFromAppToClient(reply, response);
       const requestTime = new Date().getTime() - ((_a = requestCache.times[request.id]) != null ? _a : 0);
       counters.onRequestSent().onPayloadSent(payload).onRequestTime(requestTime);
@@ -428,6 +173,7 @@ var EventHandlers = class {
     };
   }
 };
+__name(EventHandlers, "EventHandlers");
 
 // src/classes/Logger.ts
 var Logger = class {
@@ -469,6 +215,7 @@ var Logger = class {
     this.separator();
   }
 };
+__name(Logger, "Logger");
 
 // src/classes/RequestCache.ts
 var RequestCache = class {
@@ -503,14 +250,15 @@ var RequestCache = class {
     this.countCache = this.countCache.filter((ts) => currentTs - ts <= maxAgeInSeconds);
   }
 };
+__name(RequestCache, "RequestCache");
 
 // src/Application.ts
 var _Application = class {
-  constructor(fastify2, config2, axios2, requestCache, counters, logger) {
+  constructor(fastify, config, axios2, requestCache, counters, logger) {
     this.initialized = false;
     this.axios = axios2;
-    this.fastify = fastify2;
-    this.config = config2;
+    this.fastify = fastify;
+    this.config = config;
     this.requestCache = requestCache || new RequestCache();
     this.counters = counters || new Counters();
     this.logger = logger || new Logger(this.counters, this.requestCache);
@@ -557,12 +305,158 @@ var _Application = class {
   }
 };
 var Application = _Application;
-Application.VERSION = "0.2.5";
+__name(Application, "Application");
+Application.VERSION = "0.4.0";
 Application.NAME = "ray-proxy";
 
 // src/classes/ProxyConfig.ts
-var import_fs = __toModule(require("fs"));
-var findUp = require_find_up();
+var import_fs = require("fs");
+
+// node_modules/find-up/index.js
+var import_node_path2 = __toESM(require("path"), 1);
+var import_node_url2 = require("url");
+
+// node_modules/locate-path/index.js
+var import_node_process = __toESM(require("process"), 1);
+var import_node_path = __toESM(require("path"), 1);
+var import_node_fs = __toESM(require("fs"), 1);
+var import_node_url = require("url");
+
+// node_modules/yocto-queue/index.js
+var Node = class {
+  value;
+  next;
+  constructor(value) {
+    this.value = value;
+  }
+};
+__name(Node, "Node");
+var _head, _tail, _size;
+var Queue = class {
+  constructor() {
+    __privateAdd(this, _head, void 0);
+    __privateAdd(this, _tail, void 0);
+    __privateAdd(this, _size, void 0);
+    this.clear();
+  }
+  enqueue(value) {
+    const node = new Node(value);
+    if (__privateGet(this, _head)) {
+      __privateGet(this, _tail).next = node;
+      __privateSet(this, _tail, node);
+    } else {
+      __privateSet(this, _head, node);
+      __privateSet(this, _tail, node);
+    }
+    __privateWrapper(this, _size)._++;
+  }
+  dequeue() {
+    const current = __privateGet(this, _head);
+    if (!current) {
+      return;
+    }
+    __privateSet(this, _head, __privateGet(this, _head).next);
+    __privateWrapper(this, _size)._--;
+    return current.value;
+  }
+  clear() {
+    __privateSet(this, _head, void 0);
+    __privateSet(this, _tail, void 0);
+    __privateSet(this, _size, 0);
+  }
+  get size() {
+    return __privateGet(this, _size);
+  }
+  *[Symbol.iterator]() {
+    let current = __privateGet(this, _head);
+    while (current) {
+      yield current.value;
+      current = current.next;
+    }
+  }
+};
+__name(Queue, "Queue");
+_head = new WeakMap();
+_tail = new WeakMap();
+_size = new WeakMap();
+
+// node_modules/locate-path/index.js
+var typeMappings = {
+  directory: "isDirectory",
+  file: "isFile"
+};
+function checkType(type) {
+  if (type in typeMappings) {
+    return;
+  }
+  throw new Error(`Invalid type specified: ${type}`);
+}
+__name(checkType, "checkType");
+var matchType = /* @__PURE__ */ __name((type, stat) => type === void 0 || stat[typeMappings[type]](), "matchType");
+var toPath = /* @__PURE__ */ __name((urlOrPath) => urlOrPath instanceof URL ? (0, import_node_url.fileURLToPath)(urlOrPath) : urlOrPath, "toPath");
+function locatePathSync(paths, {
+  cwd = import_node_process.default.cwd(),
+  type = "file",
+  allowSymlinks = true
+} = {}) {
+  checkType(type);
+  cwd = toPath(cwd);
+  const statFunction = allowSymlinks ? import_node_fs.default.statSync : import_node_fs.default.lstatSync;
+  for (const path_ of paths) {
+    try {
+      const stat = statFunction(import_node_path.default.resolve(cwd, path_));
+      if (matchType(type, stat)) {
+        return path_;
+      }
+    } catch {
+    }
+  }
+}
+__name(locatePathSync, "locatePathSync");
+
+// node_modules/find-up/index.js
+var toPath2 = /* @__PURE__ */ __name((urlOrPath) => urlOrPath instanceof URL ? (0, import_node_url2.fileURLToPath)(urlOrPath) : urlOrPath, "toPath");
+var findUpStop = Symbol("findUpStop");
+function findUpMultipleSync(name, options = {}) {
+  let directory = import_node_path2.default.resolve(toPath2(options.cwd) || "");
+  const { root } = import_node_path2.default.parse(directory);
+  const stopAt = options.stopAt || root;
+  const limit = options.limit || Number.POSITIVE_INFINITY;
+  const paths = [name].flat();
+  const runMatcher = /* @__PURE__ */ __name((locateOptions) => {
+    if (typeof name !== "function") {
+      return locatePathSync(paths, locateOptions);
+    }
+    const foundPath = name(locateOptions.cwd);
+    if (typeof foundPath === "string") {
+      return locatePathSync([foundPath], locateOptions);
+    }
+    return foundPath;
+  }, "runMatcher");
+  const matches = [];
+  while (true) {
+    const foundPath = runMatcher(__spreadProps(__spreadValues({}, options), { cwd: directory }));
+    if (foundPath === findUpStop) {
+      break;
+    }
+    if (foundPath) {
+      matches.push(import_node_path2.default.resolve(directory, foundPath));
+    }
+    if (directory === stopAt || matches.length >= limit) {
+      break;
+    }
+    directory = import_node_path2.default.dirname(directory);
+  }
+  return matches;
+}
+__name(findUpMultipleSync, "findUpMultipleSync");
+function findUpSync(name, options = {}) {
+  const matches = findUpMultipleSync(name, __spreadProps(__spreadValues({}, options), { limit: 1 }));
+  return matches[0];
+}
+__name(findUpSync, "findUpSync");
+
+// src/classes/ProxyConfig.ts
 var defaultProxyConfigurationData = {
   hostName: "localhost",
   hostPort: 23516,
@@ -570,9 +464,9 @@ var defaultProxyConfigurationData = {
   displayBanner: true
 };
 var ProxyConfig = class {
-  constructor(config2 = {}) {
+  constructor(config = {}) {
     this.data = defaultProxyConfigurationData;
-    this.useConfiguration(config2);
+    this.useConfiguration(config);
   }
   get hostName() {
     return this.data.hostName;
@@ -586,12 +480,12 @@ var ProxyConfig = class {
   get displayBanner() {
     return this.data.displayBanner;
   }
-  useConfiguration(config2) {
-    this.data = Object.assign({}, defaultProxyConfigurationData, config2);
+  useConfiguration(config) {
+    this.data = Object.assign({}, defaultProxyConfigurationData, config);
   }
   static loadFromFile(filename = null) {
     if (!filename) {
-      filename = findUp.sync("ray-proxy.config.js");
+      filename = findUpSync("ray-proxy.config.js") || null;
       if (filename === void 0) {
         filename = __dirname + "/ray-proxy.config.js";
       }
@@ -610,11 +504,18 @@ var ProxyConfig = class {
     }
   }
 };
+__name(ProxyConfig, "ProxyConfig");
 
 // src/index.ts
-var fastify = require("fastify")({
-  logger: true
-});
-var config = ProxyConfig.loadFromFile();
-var app = new Application(fastify, config, import_axios.default);
-app.start();
+var import_axios = __toESM(require("axios"));
+var import_fastify = __toESM(require("fastify"));
+async function main() {
+  const fastify = (0, import_fastify.default)({
+    logger: true
+  });
+  const config = ProxyConfig.loadFromFile();
+  const app = new Application(fastify, config, import_axios.default);
+  return app.start();
+}
+__name(main, "main");
+main();

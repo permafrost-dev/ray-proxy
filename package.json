@@ -5,7 +5,7 @@
     "main": "dist/ray-proxy.js",
     "scripts": {
         "test": "./node_modules/.bin/jest tests",
-        "fmt": "./node_modules/.bin/prettier --config .prettierrc --write 'src/**/*.{js,ts,json}' 'tests/**/*.{js,ts,json}' './*.js'",
+        "fmt": "./node_modules/.bin/prettier --config prettier.config.js --write 'src/**/*.{js,ts,json}' 'tests/**/*.{js,ts,json}' './*.js'",
         "lint": "./node_modules/.bin/eslint --ext ts,js src/",
         "lint:fix": "./node_modules/.bin/eslint --ext ts,js --fix src/",
         "fix": "npm run fmt && npm run lint:fix",
@@ -45,7 +45,7 @@
     "lint-staged": {
         "*.{js,ts}": [
             "npm run fmt",
-            "npm run lint"
+            "npm run lint:fix"
         ]
     },
     "devDependencies": {

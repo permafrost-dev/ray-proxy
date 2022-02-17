@@ -10,13 +10,7 @@ const overrides = [
         options: {
             parser: 'json',
         },
-    },
-    {
-        files: '.madgerc',
-        options: {
-            parser: 'json',
-        },
-    },
+    }
 ];
 
 module.exports = {

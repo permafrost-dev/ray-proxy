@@ -4,6 +4,12 @@ All notable changes to `permafrost-dev/ray-proxy` will be documented in this fil
 
 ---
 
+## 0.4.0 - 2022-02-17
+
+- update all dependency versions to latest
+- minor code updates/tweaks
+- use ESM everywhere
+
 ## 0.3.0 - 2021-03-11
 
 - properly reflect Ray app response headers

@@ -1,6 +1,7 @@
 /.git
 /.github
 /.vscode
+/.husky
 /build
 /coverage
 /node_modules
@@ -23,3 +24,4 @@ _*.txt
 ray-proxy.config.js
 dist/ray-proxy.standalone.js
 dist/*.tgz
+.eslintignore

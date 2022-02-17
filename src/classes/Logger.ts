@@ -1,6 +1,6 @@
-import { Counters } from './Counters';
-import { RequestCache } from './RequestCache';
-import { formatPayloadSize } from '../lib/utils';
+import { Counters } from '@/classes/Counters';
+import { RequestCache } from '@/classes/RequestCache';
+import { formatPayloadSize } from '@/lib/utils';
 
 export class Logger {
     public counters: Counters;

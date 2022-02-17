@@ -1,12 +1,17 @@
+import { Application } from '@/Application';
+import { ProxyConfig } from '@/classes/ProxyConfig';
 import axios from 'axios';
-import { Application } from './Application';
-import { ProxyConfig } from './classes/ProxyConfig';
+import Fastify from 'fastify';
 
-const fastify = require('fastify')({
-    logger: true,
-});
+async function main() {
+    const fastify = Fastify({
+        logger: true,
+    });
 
-const config = ProxyConfig.loadFromFile();
-const app = new Application(fastify, config, axios);
+    const config = ProxyConfig.loadFromFile();
+    const app = new Application(fastify, config, axios);
 
-app.start();
+    return app.start();
+}
+
+main();

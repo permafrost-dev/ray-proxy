@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { Counters } from './classes/Counters';
-import { EventHandlers } from './classes/EventHandlers';
-import { Logger } from './classes/Logger';
-import { ProxyConfig } from './classes/ProxyConfig';
-import { RequestCache } from './classes/RequestCache';
+import { Counters } from '@/classes/Counters';
+import { EventHandlers } from '@/classes/EventHandlers';
+import { Logger } from '@/classes/Logger';
+import { ProxyConfig } from '@/classes/ProxyConfig';
+import { RequestCache } from '@/classes/RequestCache';
 
 export class Application {
     public static VERSION = '__BUILD_VERSION__';
@@ -39,7 +39,7 @@ export class Application {
     |    ,---||   |---|   ||    |   | >< |   |
     \`    \`---^\`---|   |---'\`    \`---''  \`\`---|
               \`---'   |                  \`---'
-`
+`,
             );
         }
 

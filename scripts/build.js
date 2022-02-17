@@ -20,6 +20,8 @@ class ProjectBuilder {
             platform: 'node',
             target: 'node12',
             format: 'cjs',
+            keepNames: true,
+            treeShaking: true,
             minify: standalone,
             outfile: standalone ? filenames.output.replace('.js', '.standalone.js') : filenames.output,
             external: externals,

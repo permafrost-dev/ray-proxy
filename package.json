@@ -71,7 +71,7 @@
     },
     "dependencies": {
         "axios": "^0.26.0",
-        "fastify": "^3.27.1",
+        "fastify": "^4.0.1",
         "find-up": "^6.3.0"
     },
     "bin": {

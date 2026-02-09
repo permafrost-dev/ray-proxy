@@ -27,6 +27,7 @@ module.exports = tseslint.config(
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/explicit-module-boundary-types': 'off',
             '@typescript-eslint/no-var-requires': 'off',
+            '@typescript-eslint/no-require-imports': 'off',
             '@typescript-eslint/ban-ts-comment': 'off',
             'newline-per-chained-call': ['error', { ignoreChainWithDepth: 2 }],
             indent: ['error', 4, { SwitchCase: 1 }],

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-
 import { relayResponseFromAppToClient, sendPreflightCorsResponse } from '@/lib/utils';
 import { Counters } from '@/classes/Counters';
 import { Logger } from '@/classes/Logger';
@@ -36,6 +33,7 @@ export class EventHandlers {
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onOptions(config: ProxyConfig, axios: any) {
         return async (req: any, reply: any) => {
             sendPreflightCorsResponse(reply);

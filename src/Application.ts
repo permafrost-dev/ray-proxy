@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { Counters } from '@/classes/Counters';
 import { EventHandlers } from '@/classes/EventHandlers';
 import { Logger } from '@/classes/Logger';

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`displays the statistics 1`] = `
-Array [
+[
   "---",
   "payload: ",
   "test payload",

@@ -10,7 +10,7 @@ const overrides = [
         options: {
             parser: 'json',
         },
-    }
+    },
 ];
 
 module.exports = {

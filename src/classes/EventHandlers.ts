@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 
 import { relayResponseFromAppToClient, sendPreflightCorsResponse } from '@/lib/utils';
 import { Counters } from '@/classes/Counters';

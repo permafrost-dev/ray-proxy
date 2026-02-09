@@ -1,70 +1,30 @@
+"use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-var __reExport = (target, module2, copyDefault, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-  return target;
+  return to;
 };
-var __toESM = (module2, isNodeMode) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
-};
-var __accessCheck = (obj, member, msg) => {
-  if (!member.has(obj))
-    throw TypeError("Cannot " + msg);
-};
-var __privateGet = (obj, member, getter) => {
-  __accessCheck(obj, member, "read from private field");
-  return getter ? getter.call(obj) : member.get(obj);
-};
-var __privateAdd = (obj, member, value) => {
-  if (member.has(obj))
-    throw TypeError("Cannot add the same private member more than once");
-  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
-};
-var __privateSet = (obj, member, value, setter) => {
-  __accessCheck(obj, member, "write to private field");
-  setter ? setter.call(obj, value) : member.set(obj, value);
-  return value;
-};
-var __privateWrapper = (obj, member, setter, getter) => {
-  return {
-    set _(value) {
-      __privateSet(obj, member, value, setter);
-    },
-    get _() {
-      return __privateGet(obj, member, getter);
-    }
-  };
-};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // src/classes/Counters.ts
-var Counters = class {
+var _Counters = class _Counters {
   constructor() {
     this.totalBytesSent = 0;
     this.totalRequestCounter = 0;
@@ -90,7 +50,8 @@ var Counters = class {
     return this;
   }
 };
-__name(Counters, "Counters");
+__name(_Counters, "Counters");
+var Counters = _Counters;
 
 // src/lib/utils.ts
 var formatPayloadSize = /* @__PURE__ */ __name((bytes, decimals = 3) => {
@@ -127,7 +88,7 @@ var sendPreflightCorsResponse = /* @__PURE__ */ __name((fastifyReply) => {
 }, "sendPreflightCorsResponse");
 
 // src/classes/EventHandlers.ts
-var EventHandlers = class {
+var _EventHandlers = class _EventHandlers {
   onHead(config, axios2) {
     return async (req, reply) => {
       let response;
@@ -159,7 +120,7 @@ var EventHandlers = class {
     return async (request, reply) => {
       var _a;
       let response;
-      requestCache.cache(request.id, new Date().getTime());
+      requestCache.cache(request.id, (/* @__PURE__ */ new Date()).getTime());
       const payload = JSON.stringify(request.body).toString();
       try {
         response = await axios2.post(`http://${config.hostName}:${config.hostPort}`, request.body);
@@ -167,16 +128,17 @@ var EventHandlers = class {
         response = err.response;
       }
       relayResponseFromAppToClient(reply, response);
-      const requestTime = new Date().getTime() - ((_a = requestCache.times[request.id]) != null ? _a : 0);
+      const requestTime = (/* @__PURE__ */ new Date()).getTime() - ((_a = requestCache.times[request.id]) != null ? _a : 0);
       counters.onRequestSent().onPayloadSent(payload).onRequestTime(requestTime);
       logger.display(requestTime, payload);
     };
   }
 };
-__name(EventHandlers, "EventHandlers");
+__name(_EventHandlers, "EventHandlers");
+var EventHandlers = _EventHandlers;
 
 // src/classes/Logger.ts
-var Logger = class {
+var _Logger = class _Logger {
   constructor(counters, requestCache, logger = null) {
     this.logger = logger != null ? logger : console;
     this.counters = counters;
@@ -215,17 +177,24 @@ var Logger = class {
     this.separator();
   }
 };
-__name(Logger, "Logger");
+__name(_Logger, "Logger");
+var Logger = _Logger;
 
 // src/classes/RequestCache.ts
-var RequestCache = class {
+var _RequestCache = class _RequestCache {
   constructor() {
     this.countCache = [];
     this.times = {};
   }
+  /**
+   * add an entry to the request history.
+   *   you should call cache() once on each request
+   *
+   * @param currentTs number|null
+   */
   cache(requestId, currentTs = null, purgeOldItems = true) {
-    this.times[requestId] = currentTs != null ? currentTs : new Date().getTime();
-    currentTs = Number(((currentTs != null ? currentTs : new Date().getTime()) / 1e3).toFixed(0));
+    this.times[requestId] = currentTs != null ? currentTs : (/* @__PURE__ */ new Date()).getTime();
+    currentTs = Number(((currentTs != null ? currentTs : (/* @__PURE__ */ new Date()).getTime()) / 1e3).toFixed(0));
     this.countCache.push(currentTs);
     if (this.countCache.length > 3e3) {
       this.countCache.splice(0, this.countCache.length - 3e3);
@@ -234,6 +203,11 @@ var RequestCache = class {
       this.purgeCache(currentTs);
     }
   }
+  /**
+   * returns the number of requests per second based on the current request cache history.
+   *
+   * @returns number|float
+   */
   requestsPerSec() {
     if (!this.countCache.length) {
       return 0;
@@ -246,14 +220,20 @@ var RequestCache = class {
     }
     return this.countCache.length / elapsedTime;
   }
+  /**
+   *
+   * @param currentTs number
+   * @param maxAgeInSeconds number
+   */
   purgeCache(currentTs, maxAgeInSeconds = 5) {
     this.countCache = this.countCache.filter((ts) => currentTs - ts <= maxAgeInSeconds);
   }
 };
-__name(RequestCache, "RequestCache");
+__name(_RequestCache, "RequestCache");
+var RequestCache = _RequestCache;
 
 // src/Application.ts
-var _Application = class {
+var _Application = class _Application {
   constructor(fastify, config, axios2, requestCache, counters, logger) {
     this.initialized = false;
     this.axios = axios2;
@@ -268,12 +248,14 @@ var _Application = class {
   }
   displayBanner() {
     if (this.config.displayBanner) {
-      this.logger.log(`
+      this.logger.log(
+        `
     ,---.,---.,   .   ,---.,---.,---..  ,,   .
     |    ,---||   |---|   ||    |   | >< |   |
     \`    \`---^\`---|   |---'\`    \`---''  \`\`---|
               \`---'   |                  \`---'
-`);
+`
+      );
     }
     this.logger.log(`Running ${_Application.NAME} v${_Application.VERSION}`);
     this.logger.log(`Proxy listening on local port ${this.config.proxyPort}`);
@@ -304,10 +286,10 @@ var _Application = class {
     }
   }
 };
+__name(_Application, "Application");
+_Application.VERSION = "0.4.0";
+_Application.NAME = "ray-proxy";
 var Application = _Application;
-__name(Application, "Application");
-Application.VERSION = "0.4.0";
-Application.NAME = "ray-proxy";
 
 // src/classes/ProxyConfig.ts
 var import_fs = require("fs");
@@ -321,78 +303,18 @@ var import_node_process = __toESM(require("process"), 1);
 var import_node_path = __toESM(require("path"), 1);
 var import_node_fs = __toESM(require("fs"), 1);
 var import_node_url = require("url");
-
-// node_modules/yocto-queue/index.js
-var Node = class {
-  value;
-  next;
-  constructor(value) {
-    this.value = value;
-  }
-};
-__name(Node, "Node");
-var _head, _tail, _size;
-var Queue = class {
-  constructor() {
-    __privateAdd(this, _head, void 0);
-    __privateAdd(this, _tail, void 0);
-    __privateAdd(this, _size, void 0);
-    this.clear();
-  }
-  enqueue(value) {
-    const node = new Node(value);
-    if (__privateGet(this, _head)) {
-      __privateGet(this, _tail).next = node;
-      __privateSet(this, _tail, node);
-    } else {
-      __privateSet(this, _head, node);
-      __privateSet(this, _tail, node);
-    }
-    __privateWrapper(this, _size)._++;
-  }
-  dequeue() {
-    const current = __privateGet(this, _head);
-    if (!current) {
-      return;
-    }
-    __privateSet(this, _head, __privateGet(this, _head).next);
-    __privateWrapper(this, _size)._--;
-    return current.value;
-  }
-  clear() {
-    __privateSet(this, _head, void 0);
-    __privateSet(this, _tail, void 0);
-    __privateSet(this, _size, 0);
-  }
-  get size() {
-    return __privateGet(this, _size);
-  }
-  *[Symbol.iterator]() {
-    let current = __privateGet(this, _head);
-    while (current) {
-      yield current.value;
-      current = current.next;
-    }
-  }
-};
-__name(Queue, "Queue");
-_head = new WeakMap();
-_tail = new WeakMap();
-_size = new WeakMap();
-
-// node_modules/locate-path/index.js
 var typeMappings = {
   directory: "isDirectory",
   file: "isFile"
 };
 function checkType(type) {
-  if (type in typeMappings) {
+  if (Object.hasOwnProperty.call(typeMappings, type)) {
     return;
   }
   throw new Error(`Invalid type specified: ${type}`);
 }
 __name(checkType, "checkType");
-var matchType = /* @__PURE__ */ __name((type, stat) => type === void 0 || stat[typeMappings[type]](), "matchType");
+var matchType = /* @__PURE__ */ __name((type, stat) => stat[typeMappings[type]](), "matchType");
 var toPath = /* @__PURE__ */ __name((urlOrPath) => urlOrPath instanceof URL ? (0, import_node_url.fileURLToPath)(urlOrPath) : urlOrPath, "toPath");
 function locatePathSync(paths, {
   cwd = import_node_process.default.cwd(),
@@ -404,7 +326,12 @@ function locatePathSync(paths, {
   const statFunction = allowSymlinks ? import_node_fs.default.statSync : import_node_fs.default.lstatSync;
   for (const path_ of paths) {
     try {
-      const stat = statFunction(import_node_path.default.resolve(cwd, path_));
+      const stat = statFunction(import_node_path.default.resolve(cwd, path_), {
+        throwIfNoEntry: false
+      });
+      if (!stat) {
+        continue;
+      }
       if (matchType(type, stat)) {
         return path_;
       }
@@ -435,7 +362,7 @@ function findUpMultipleSync(name, options = {}) {
   }, "runMatcher");
   const matches = [];
   while (true) {
-    const foundPath = runMatcher(__spreadProps(__spreadValues({}, options), { cwd: directory }));
+    const foundPath = runMatcher({ ...options, cwd: directory });
     if (foundPath === findUpStop) {
       break;
     }
@@ -451,7 +378,7 @@ function findUpMultipleSync(name, options = {}) {
 }
 __name(findUpMultipleSync, "findUpMultipleSync");
 function findUpSync(name, options = {}) {
-  const matches = findUpMultipleSync(name, __spreadProps(__spreadValues({}, options), { limit: 1 }));
+  const matches = findUpMultipleSync(name, { ...options, limit: 1 });
   return matches[0];
 }
 __name(findUpSync, "findUpSync");
@@ -463,7 +390,7 @@ var defaultProxyConfigurationData = {
   proxyPort: 23517,
   displayBanner: true
 };
-var ProxyConfig = class {
+var _ProxyConfig = class _ProxyConfig {
   constructor(config = {}) {
     this.data = defaultProxyConfigurationData;
     this.useConfiguration(config);
@@ -492,19 +419,20 @@ var ProxyConfig = class {
     }
     if (filename === null || !(0, import_fs.existsSync)(filename)) {
       console.log("config file not found, using defaults");
-      return new ProxyConfig(defaultProxyConfigurationData);
+      return new _ProxyConfig(defaultProxyConfigurationData);
     }
     let configData;
     try {
       configData = require(filename);
-      return new ProxyConfig(configData);
+      return new _ProxyConfig(configData);
     } catch (err) {
       console.log("Could not load config file:", err);
       throw err;
     }
   }
 };
-__name(ProxyConfig, "ProxyConfig");
+__name(_ProxyConfig, "ProxyConfig");
+var ProxyConfig = _ProxyConfig;
 
 // src/index.ts
 var import_axios = __toESM(require("axios"));

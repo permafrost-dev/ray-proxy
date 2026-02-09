@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`relays a response from the app to the client 1`] = `
-Array [
-  Object {
+[
+  {
     "abc": 123,
     "def": 456,
   },
@@ -10,32 +10,32 @@ Array [
 `;
 
 exports[`relays a response from the app to the client 2`] = `
-Array [
-  Object {
+[
+  {
     "name": "one",
     "value": "header one",
   },
-  Object {
+  {
     "name": "two",
     "value": "header two",
   },
-  Object {
+  {
     "name": "connection",
     "value": "keep-alive",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Origin",
     "value": "*",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Methods",
     "value": "GET, POST, OPTIONS",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Headers",
     "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
   },
-  Object {
+  {
     "name": "Access-Control-Expose-Headers",
     "value": "Content-Length,Content-Range",
   },
@@ -43,28 +43,28 @@ Array [
 `;
 
 exports[`sends preflight response headers 1`] = `
-Array [
-  Object {
+[
+  {
     "name": "Access-Control-Allow-Origin",
     "value": "*",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Methods",
     "value": "GET, POST, OPTIONS",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Headers",
     "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
   },
-  Object {
+  {
     "name": "Access-Control-Expose-Headers",
     "value": "Content-Length,Content-Range",
   },
-  Object {
+  {
     "name": "Access-Control-Max-Age",
     "value": 86400,
   },
-  Object {
+  {
     "name": "Content-Type",
     "value": "text/plain; charset=utf-8",
   },
@@ -72,20 +72,20 @@ Array [
 `;
 
 exports[`sets CORS headers on a reply object 1`] = `
-Array [
-  Object {
+[
+  {
     "name": "Access-Control-Allow-Origin",
     "value": "*",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Methods",
     "value": "GET, POST, OPTIONS",
   },
-  Object {
+  {
     "name": "Access-Control-Allow-Headers",
     "value": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
   },
-  Object {
+  {
     "name": "Access-Control-Expose-Headers",
     "value": "Content-Length,Content-Range",
   },

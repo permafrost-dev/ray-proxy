@@ -111,6 +111,7 @@ var _EventHandlers = class _EventHandlers {
       relayResponseFromAppToClient(reply, response);
     };
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onOptions(config, axios2) {
     return async (req, reply) => {
       sendPreflightCorsResponse(reply);
